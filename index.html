@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的个人网站</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e4ecfb);
+      color: #1f2937;
+      line-height: 1.7;
+    }
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 10;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+    }
+    nav a {
+      text-decoration: none;
+      color: #374151;
+      margin-left: 18px;
+      font-size: 15px;
+    }
+    nav a:hover { color: #2563eb; }
+
+    .hero {
+      padding: 80px 0 50px;
+    }
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .hero p {
+      color: #4b5563;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary {
+      background: white;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .btn-secondary:hover { background: #eff6ff; }
+
+    .card {
+      background: linear-gradient(180deg, #0f172a, #1e293b);
+      color: white;
+      border-radius: 24px;
+      padding: 28px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.25);
+    }
+    .card-top {
+      font-size: 14px;
+      color: #93c5fd;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+    .card-footer {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #93c5fd;
+    }
+
+    section {
+      padding: 38px 0;
+    }
+    .section-title {
+      font-size: 30px;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .info-box {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .info-box h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .info-box p, .info-box li {
+      color: #4b5563;
+      font-size: 15px;
+    }
+    .info-box ul {
+      padding-left: 18px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+    .timeline-item {
+      background: white;
+      border-left: 5px solid #2563eb;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border-top: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .timeline-item h4 {
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+    .timeline-item p {
+      color: #4b5563;
+      font-size: 15px;
+    }
+
+    .contact {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .contact p { color: #4b5563; }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      padding: 30px 0 40px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-box,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 { font-size: 34px; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">m - AI成长记录</div>
+      <nav>
+        <a href="index.html">首页</a>
+        <a href="review.html">学习复盘</a>
+        <a href="chat.html">AI问答</a>
+        <a href="#contact">联系</a>      
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-box">
+        <div>
+          <div class="tag">AI × 跨境 × 成长记录</div>
+          <h1>一个普通大学生，用AI逆袭的真实记录</h1>
+          <p>
+            我是一名正在学习 AI 与跨境电商的行动者。
+            这个网站用来展示我的个人名片、学习复盘和项目成长记录。
+          </p>
+          <div class="btns">
+            <a class="btn btn-primary" href="#about">认识我</a>
+            <a class="btn btn-secondary" href="#learn">查看复盘</a>
+          </div>
+        </div>
+        <div class="card">
+          <div><div class="card">
+  <div>
+    <div class="card-top">PERSONAL CARD</div>
+    <img src="avatar.jpg" alt="我的头像" style="width:90px;height:90px;border-radius:50%;object-fit:cover;margin-bottom:14px;">
+    <h3>mml</h3>
+    <p>大学生 / AI实践者 / 跨境电商创业探索者</p>
+  </div>
+  <div class="card-footer">目标：先跑通一个项目，再不断放大</div>
+</div>
+            <div class="card-top">PERSONAL CARD</div>
+            <h3>m</h3>
+            <p>大学生 / AI实践者 / 跨境电商创业者</p></div>
+          
+          <div class="card-footer">目标：先跑通一个项目，再不断放大</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container">
+      <h2 class="section-title">关于我</h2>
+      <p class="section-desc">先让访问你网站的人在 30 秒内明白：你是谁、你在做什么、你的目标是什么。</p>
+      <div class="grid-3">
+        <div class="info-box">
+          <h3>我的身份</h3>
+          <p>大学生，正在探索AI和跨境电商，希望用技术跑出自己的第一条商业路径。</p>
+        </div>
+        <div class="info-box">
+          <h3>我的方向</h3>
+          <p>目前专注AI工具应用、网站搭建和跨境电商结合，尝试用AI提升效率和变现能力。</p>
+        </div>
+        <div class="info-box">
+          <h3>我的目标</h3>
+          <p>先做出一个真正能跑起来的作品，再逐步升级成有价值的工具或服务。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="container">
+      <h2 class="section-title">学习复盘</h2>
+      <p class="section-desc">把每一次任务卡、每一次踩坑、每一次小成功都记录下来，这就是你的成长资产。</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>教学卡片 1：GitHub 与环境配置</h4>
+          <p>我学会了 GitHub 的基础使用，知道如何找项目、看 README、下载项目，并开始配置本地开发环境。</p>
+        </div>
+        <div class="timeline-item">
+          <h4>教学卡片 2：AI 辅助开发</h4>
+          <p>我开始尝试让 AI 理解我的需求，不再只把 AI 当作聊天工具，而是把它当作代码老师和开发助手。</p>
+        </div>
+        <div class="timeline-item">
+          <h4>教学卡片 3：做出自己的网页</h4>
+          <p>我不再只是浏览别人的作品，而是开始真正搭建属于我自己的个人网站，并准备后续部署上线。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan" class="container">
+      <h2 class="section-title">我的下一步计划</h2>
+      <p class="section-desc">不要一下做太大。先把项目跑通，再逐步加功能。</p>
+      <div class="grid-3">
+        <div class="info-box">
+          <h3>第 1 步</h3>
+          <ul>
+            <li>完成个人网站第一版</li>
+            <li>替换成自己的真实内容</li>
+            <li>本地成功预览</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>第 2 步</h3>
+          <ul>
+            <li>上传到 GitHub 仓库</li>
+            <li>学会更新代码</li>
+            <li>准备部署到 Vercel</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>第 3 步</h3>
+          <ul>
+            <li>加入 AI 问答界面</li>
+            <li>后续接入 HTTP 请求</li>
+            <li>再考虑知识库功能</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <div class="contact">
+        <section id="works" class="container">
+  <h2 class="section-title">我的作品展示</h2>
+  <p class="section-desc">这里展示我已经完成或正在进行中的内容。</p>
+  <div class="grid-3">
+    <div class="info-box">
+      <h3>个人网站第一版</h3>
+      <p>我从0开始搭建了自己的个人网站，完成了首页、学习复盘页和AI问答页。</p>
+    </div>
+    <div class="info-box">
+      <h3>GitHub 学习记录</h3>
+      <p>我学会了搜索项目、查看 README、下载模板，并开始理解开源项目的使用方式。</p>
+    </div>
+    <div class="info-box">
+      <h3>AI 辅助开发实践</h3>
+      <p>我开始让 AI 帮我生成网页、修改代码、分析报错，逐步进入真正的开发状态。</p>
+    </div>
+  </div>
+</section><section id="works" class="container">
+  <h2 class="section-title">我的作品展示</h2>
+  <p class="section-desc">这里展示我已经完成或正在进行中的内容。</p>
+  <div class="grid-3">
+    <div class="info-box">
+      <h3>个人网站第一版</h3>
+      <p>我从0开始搭建了自己的个人网站，完成了首页、学习复盘页和AI问答页。</p>
+    </div>
+    <div class="info-box">
+      <h3>GitHub 学习记录</h3>
+      <p>我学会了搜索项目、查看 README、下载模板，并开始理解开源项目的使用方式。</p>
+    </div>
+    <div class="info-box">
+      <h3>AI 辅助开发实践</h3>
+      <p>我开始让 AI 帮我生成网页、修改代码、分析报错，逐步进入真正的开发状态。</p>
+    </div>
+  </div>
+</section>
+        <h2 class="section-title"><section id="contact" class="container">
+  <div class="contact">
+    <h2 class="section-title">联系我</h2>
+    <p>GitHub：<a href="https://github.com/lllmm" target="_blank">点击查看我的 GitHub</a></p>
+    <p>邮箱：lm3220246@gmail.com</p>
+    <p>这里后续还可以放你的作品集、社交平台或合作方式。</p>
+  </div>
+</section></h2>
+        <p>入<a href="#works">作品</a>口。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 我的个人网站｜第一版练习项目</div>
+  </footer>
+</body>
+</html>

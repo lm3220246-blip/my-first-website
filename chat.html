@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI问答 - mml</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #eef4ff, #f8fafc);
+      color: #1f2937;
+      min-height: 100vh;
+    }
+    .container {
+      width: min(900px, 92%);
+      margin: 0 auto;
+    }
+    header {
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    nav a {
+      text-decoration: none;
+      color: #374151;
+      margin-left: 16px;
+    }
+    nav a:hover { color: #2563eb; }
+    .box {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 28px;
+      margin: 40px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    h1 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+    p.desc {
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid #d1d5db;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 16px;
+      resize: vertical;
+      outline: none;
+    }
+    button {
+      margin-top: 14px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .output {
+      margin-top: 20px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      min-height: 100px;
+      color: #374151;
+      white-space: pre-wrap;
+    }
+    footer {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      padding: 10px 0 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">mml 的网站</div>
+      <nav>
+        <a href="index.html">首页</a>
+        <a href="review.html">学习复盘</a>
+        <a href="chat.html">AI问答</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="box">
+      <h1>AI 问答助手</h1>
+      <p class="desc">这是第一版演示页面。现在先做假问答，后面再接入真正的 HTTP 接口和知识库。</p>
+
+      <textarea id="question" placeholder="请输入你的问题，比如：你学会了什么？"></textarea>
+      <button onclick="askAI()">发送问题</button>
+
+      <div class="output" id="output">这里会显示回答...</div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 mml | AI问答页第一版</div>
+  </footer>
+
+  <script>
+    function askAI() {
+      const question = document.getElementById("question").value.trim();
+      const output = document.getElementById("output");
+
+      if (!question) {
+        output.innerText = "请先输入一个问题。";
+        return;
+      }
+
+      if (question.includes("学会了什么")) {
+        output.innerText = "我学会了 GitHub 基础使用、项目下载、本地运行网页，以及如何借助 AI 来搭建自己的个人网站。";
+      } else if (question.includes("目标")) {
+        output.innerText = "我的目标是先跑通一个真实项目，再逐步升级成可上线、可展示、可变现的网站。";
+      } else {
+        output.innerText = "这是第一版演示。后续这里会接入真正的 AI 接口，让它根据我的学习内容自动回答。";
+      }
+    }
+  </script>
+</body>
+</html>
