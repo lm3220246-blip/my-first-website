@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -17,7 +17,7 @@
       margin: 0 auto;
     }
     header {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.92);
       border-bottom: 1px solid #e5e7eb;
       padding: 18px 0;
     }
@@ -36,6 +36,7 @@
       margin-left: 16px;
     }
     nav a:hover { color: #2563eb; }
+
     .box {
       background: white;
       border: 1px solid #e5e7eb;
@@ -44,14 +45,18 @@
       margin: 40px auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
+
     h1 {
       font-size: 34px;
       margin-bottom: 12px;
     }
-    p.desc {
+
+    .desc {
       color: #6b7280;
       margin-bottom: 20px;
+      line-height: 1.8;
     }
+
     textarea {
       width: 100%;
       min-height: 120px;
@@ -62,6 +67,7 @@
       resize: vertical;
       outline: none;
     }
+
     button {
       margin-top: 14px;
       padding: 12px 20px;
@@ -72,19 +78,23 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background: #1d4ed8;
     }
+
     .output {
       margin-top: 20px;
       background: #f8fafc;
       border: 1px solid #e5e7eb;
       border-radius: 14px;
       padding: 18px;
-      min-height: 100px;
+      min-height: 120px;
       color: #374151;
       white-space: pre-wrap;
+      line-height: 1.8;
     }
+
     footer {
       text-align: center;
       color: #6b7280;
@@ -108,21 +118,24 @@
   <main class="container">
     <div class="box">
       <h1>AI 问答助手</h1>
-      <p class="desc">这是第一版演示页面。现在先做假问答，后面再接入真正的 HTTP 接口和知识库。</p>
+      <p class="desc">
+        这是我的 AI 问答页面。你可以输入关于 AI 学习、网页搭建、GitHub、
+        或者我的成长方向的问题。
+      </p>
 
-      <textarea id="question" placeholder="请输入你的问题，比如：你学会了什么？"></textarea>
+      <textarea id="question" placeholder="请输入你的问题，比如：我现在该先学什么？"></textarea>
       <button onclick="askAI()">发送问题</button>
 
-      <div class="output" id="output">这里会显示回答...</div>
+      <div class="output" id="output">这里会显示 AI 的回答...</div>
     </div>
   </main>
 
   <footer>
-    <div class="container">© 2026 mml | AI问答页第一版</div>
+    <div class="container">© 2026 mml | AI问答页</div>
   </footer>
 
   <script>
-    function askAI() {
+    async function askAI() {
       const question = document.getElementById("question").value.trim();
       const output = document.getElementById("output");
 
@@ -131,12 +144,27 @@
         return;
       }
 
-      if (question.includes("学会了什么")) {
-        output.innerText = "我学会了 GitHub 基础使用、项目下载、本地运行网页，以及如何借助 AI 来搭建自己的个人网站。";
-      } else if (question.includes("目标")) {
-        output.innerText = "我的目标是先跑通一个真实项目，再逐步升级成可上线、可展示、可变现的网站。";
-      } else {
-        output.innerText = "这是第一版演示。后续这里会接入真正的 AI 接口，让它根据我的学习内容自动回答。";
+      output.innerText = "AI 思考中...";
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          output.innerText = data.error || "请求失败，请稍后再试。";
+          return;
+        }
+
+        output.innerText = data.answer || "没有拿到回答。";
+      } catch (err) {
+        output.innerText = "连接失败，请检查网络或接口配置。";
       }
     }
   </script>
